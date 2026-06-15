@@ -1,0 +1,666 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 150 14% 95%;
+    --foreground: 160 34% 34%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 160 34% 28%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 158 34% 37%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 155 23% 88%;
+    --secondary-foreground: 160 34% 28%;
+
+    --muted: 150 17% 91%;
+    --muted-foreground: 160 16% 45%;
+
+    --accent: 154 31% 90%;
+    --accent-foreground: 160 34% 28%;
+
+    --destructive: 357 77% 48%;
+    --destructive-foreground: 0 0% 100%;
+
+    --success: 158 39% 35%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 26 88% 54%;
+    --warning-foreground: 0 0% 100%;
+
+    --border: 150 14% 82%;
+    --input: 150 18% 81%;
+    --ring: 158 34% 37%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5% 26%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 210 40% 96%;
+    --sidebar-accent-foreground: 222 47% 11%;
+    --sidebar-border: 214 32% 91%;
+    --sidebar-ring: 217 91% 60%;
+  }
+
+  .dark {
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 222 47% 9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222 47% 9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 217 91% 60%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 217 33% 17%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217 33% 17%;
+    --muted-foreground: 215 20% 65%;
+
+    --accent: 217 33% 17%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 210 40% 98%;
+
+    --success: 160 84% 30%;
+    --success-foreground: 210 40% 98%;
+
+    --warning: 38 92% 40%;
+    --warning-foreground: 210 40% 98%;
+
+    --border: 217 33% 17%;
+    --input: 217 33% 17%;
+    --ring: 217 91% 60%;
+
+    --sidebar-background: 222 47% 6%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 217 91% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 217 33% 17%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217 33% 17%;
+    --sidebar-ring: 217 91% 60%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-[#101312] text-foreground;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  }
+}
+
+@layer utilities {
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .app-shell {
+    width: 100%;
+    max-width: 402px;
+    min-height: 100dvh;
+    background: hsl(var(--background));
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  .phone-frame {
+    width: 390px;
+    height: 694px;
+    position: relative;
+    overflow: hidden;
+    background: hsl(var(--background));
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+
+  .app-container {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: 74px;
+    box-sizing: border-box;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .app-container::-webkit-scrollbar {
+    display: none;
+  }
+
+  .app-bg::before,
+  .app-bg::after {
+    content: "";
+    position: absolute;
+    border-radius: 999px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .top-header {
+    height: 64px;
+    padding: 14px 16px;
+    box-sizing: border-box;
+  }
+
+  .app-content {
+    position: relative;
+    z-index: 1;
+    filter: brightness(1);
+    transition: filter 0.3s ease;
+  }
+
+  .app-content.modal-open {
+    filter: brightness(0.72);
+  }
+
+  .app-shell {
+    position: relative;
+  }
+
+  .modal-inner {
+    height: 100%;
+    overflow-y: auto;
+    padding: 0 20px 40px 20px;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .sheet-slide-up {
+    animation: sheet-slide-up 300ms ease forwards;
+  }
+
+  .sheet-fade-in {
+    animation: sheet-fade-in 300ms ease forwards;
+  }
+
+  .modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 50;
+  }
+
+  .notif-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .notif-bell-btn {
+    position: relative;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background 0.15s ease;
+  }
+
+  .notif-bell-btn:hover {
+    background: rgba(0, 0, 0, 0.06);
+  }
+
+  .notif-badge {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: #e53935;
+    color: white;
+    font-size: 9px;
+    font-weight: 700;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid white;
+  }
+
+  .notif-dropdown {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 260px;
+    background: white;
+    border-radius: 16px;
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.14),
+      0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 100;
+    overflow: hidden;
+    animation: dropDown 0.2s ease-out;
+  }
+
+  @keyframes dropDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .notif-dropdown-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 14px 10px;
+  }
+
+  .notif-dropdown-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .notif-dropdown-count {
+    background: #e53935;
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 99px;
+  }
+
+  .notif-divider {
+    height: 1px;
+    background: #f0f0f0;
+    margin: 0 14px;
+  }
+
+  .notif-item-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 14px;
+    border-bottom: 1px solid #f8f8f8;
+    transition: background 0.15s;
+  }
+
+  .notif-item-row:hover {
+    background: #fafafa;
+  }
+
+  .notif-item-row:last-child {
+    border-bottom: none;
+  }
+
+  .notif-item-left {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .notif-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    background: #f59e0b;
+  }
+
+  .notif-item-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+  }
+
+  .notif-item-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #1a1a1a;
+  }
+
+  .notif-item-sub {
+    font-size: 11px;
+    color: #aaa;
+  }
+
+  .notif-item-days {
+    font-size: 11px;
+    font-weight: 700;
+    white-space: nowrap;
+    color: #f59e0b;
+  }
+
+  .notif-empty {
+    text-align: center;
+    padding: 24px 14px;
+    font-size: 13px;
+    color: #aaa;
+  }
+
+  .delete-btn {
+    width: 28px;
+    height: 28px;
+    border: none;
+    background: #fdecea;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #e53935;
+    transition: all 0.15s ease;
+    flex-shrink: 0;
+    padding: 0;
+  }
+
+  .delete-btn:hover {
+    background: #e53935;
+    color: white;
+  }
+
+  .delete-btn:active {
+    transform: scale(0.92);
+  }
+
+  .add-item-modal {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: 100%;
+    max-height: 85%;
+    overflow: hidden;
+    background: #ffffff;
+    border-radius: 24px 24px 0 0;
+    padding: 20px 16px 36px;
+    box-sizing: border-box;
+    z-index: 60;
+  }
+
+  @keyframes sheet-slide-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes sheet-fade-in {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .modal-inner::-webkit-scrollbar {
+    display: none;
+  }
+
+  .modal-item-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 0;
+    border-bottom: 1px solid #f2f2f2;
+  }
+
+  .bottom-nav-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 64px;
+    background: white;
+    border-top: none;
+    box-shadow:
+      0 -4px 20px rgba(0, 0, 0, 0.10),
+      0 -1px 6px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 0 16px;
+    z-index: 40;
+    border-radius: 0;
+  }
+
+  .nav-item {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .nav-icon-box {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+  }
+
+  .nav-icon-box.active {
+    background: #1a3d2e;
+  }
+
+  .nav-icon-box.active svg {
+    color: white;
+    stroke: white;
+  }
+
+  .nav-icon-box:not(.active) svg {
+    color: #9aa5b4;
+    stroke: #9aa5b4;
+  }
+
+  .stat-dropdown-card {
+    border-radius: 16px;
+    padding: 14px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    overflow: hidden;
+    flex: 1;
+  }
+
+  .stat-dropdown-card.pink {
+    background: #fff0f0;
+  }
+
+  .stat-dropdown-card.green {
+    background: #edf7f2;
+  }
+
+  .stat-card-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+  }
+
+  .stat-card-icon {
+    font-size: 18px;
+  }
+
+  .stat-card-count-chevron {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .stat-count {
+    font-size: 16px;
+    font-weight: 700;
+    color: #e53935;
+  }
+
+  .green-text {
+    color: #1a3d2e;
+  }
+
+  .stat-chevron {
+    font-size: 12px;
+    color: #999;
+    transition: transform 0.25s ease;
+  }
+
+  .stat-chevron.open {
+    transform: rotate(180deg);
+  }
+
+  .stat-big-number {
+    font-size: 22px;
+    font-weight: 700;
+    color: #e53935;
+    margin: 6px 0 2px;
+  }
+
+  .stat-label {
+    font-size: 12px;
+    color: #e53935;
+    font-weight: 500;
+  }
+
+  .stat-dropdown-list {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease, opacity 0.25s ease;
+    opacity: 0;
+  }
+
+  .stat-dropdown-list.open {
+    max-height: 320px;
+    opacity: 1;
+    margin-top: 10px;
+  }
+
+  .stat-dropdown-divider {
+    height: 1px;
+    background: rgba(0, 0, 0, 0.08);
+    margin-bottom: 10px;
+  }
+
+  .stat-dropdown-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 7px 0;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    gap: 8px;
+  }
+
+  .stat-dropdown-row:last-child {
+    border-bottom: none;
+  }
+
+  .stat-row-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stat-row-emoji {
+    font-size: 15px;
+  }
+
+  .stat-row-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+
+  .stat-row-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: #e53935;
+    text-align: right;
+  }
+
+  .stat-row-value.neutral {
+    color: #555;
+  }
+
+  .modal-item-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f0f4f0;
+    border: 1.5px solid #e0e8e0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    color: #1a3d2e;
+  }
+
+  .modal-item-center {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .modal-item-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #1a1a1a;
+  }
+
+  .modal-item-sub {
+    font-size: 12px;
+    color: #aaa;
+  }
+
+  .modal-item-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #1a1a1a;
+    text-align: right;
+    white-space: nowrap;
+  }
+
+  .modal-item-value.danger {
+    color: #e53935;
+  }
+
+  .modal-item-value.safe {
+    color: #2e7d32;
+  }
+}
